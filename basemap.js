@@ -1,1 +1,2 @@
-alert("Hallo WElt!");
+let myMap = L.map("mapdiv");
+let myLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
