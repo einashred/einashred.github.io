@@ -52,6 +52,8 @@ let myMapControl = L.control.layers({
     "Basemap Orthofoto" : myLayers.bmaporthofoto30cm,
     "Basemap Grau" : myLayers.bmapgrau,
     "Basemap hidpi" : myLayers.bmaphidpi,
+    
+},{
     "Basemap Overlay" : myLayers.bmapoverlay,
 })
 myMap.addControl(myMapControl);
