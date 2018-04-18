@@ -46,5 +46,16 @@ let myLayers = {
 
 
 myMap.addLayer(myLayers.bmaporthofoto30cm);
+
+let myMapControl = L.control.layers({
+    "Openstreetmap" : myLayers.osm,
+    "Basemap Orthofoto" : myLayers.bmaporthofoto30cm,
+    "Basemap Grau" : myLayers.bmapgrau,
+    "Basemap hidpi" : myLayers.bmaphidpi,
+    "Basemap Overlay" : myLayers.bmapoverlay,
+})
+myMap.addControl(myMapControl);
+
+
 myMap.setView([47.267,11.383],11);
 //fuegt koordinaten ein, für die variablen//
