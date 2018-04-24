@@ -65,4 +65,13 @@ myMap.addControl(myMapControl);
 
 
 myMap.setView([47.267,11.383],11);
-//fuegt koordinaten ein, für die variablen//
+//fuegt koordinaten ein, für die variablen http://leafletjs.com/reference-1.3.0.html#map-setview
+
+let myMapScale = L.control.scale( //http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
+    {position: "bottomleft",
+    metric: true, //http://leafletjs.com/reference-1.3.0.html#control-scale-metric
+    imperial: false, //http://leafletjs.com/reference-1.3.0.html#control-scale-imperial
+    maxWidth: 200} //http://leafletjs.com/reference-1.3.0.html#control-scale-maxwidth
+).addTo(myMap);
+ 
+
