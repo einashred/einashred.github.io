@@ -1,15 +1,19 @@
-let myMap = L.map("mapdiv"); 
+let myMap = L.map("mapdiv"); //"http://leafletjs.com/reference-1.3.0.html#map-l-map"
+
 //spricht leaflet bib an erstellt variable myMap, da ist der link zur bib drin, erstellt neue Karte link auf html div //
 
 let myLayers = {
     
-    osm : L.tileLayer(
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    osm : L.tileLayer( //http://leafletjs.com/reference-1.3.0.html#tilayer 
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            subdomains : ["maps", "maps1", "maps2", "maps3","maps4"],
+            attribution : "Datenquelle: <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
+        }
     ),
     geolandbasemap : L.tileLayer(
         "https://maps.wien.gv.at/basemap/geolandbasemap/normal/google3857/{z}/{y}/{x}.png" , {
-        subdomains : ["maps","maps2","maps2","maps3","maps4"],
-        attribution : "Datenquelle: <a href='https://www.basemap.at'>basematp.at</a>"
+        subdomains : ["maps","maps2","maps2","maps3","maps4"], //http://leafletjs.com/reference-1.3.0.html#tilelayer-subdomains
+        attribution : "Datenquelle: <a href='https://www.basemap.at'>basematp.at</a>" //http://leafletjs.com/reference-1.3.0.html#control-attribution
     }
     ),
     bmapoverlay : L.tileLayer(
@@ -46,8 +50,9 @@ let myLayers = {
 
 
 myMap.addLayer(myLayers.bmaporthofoto30cm);
+//http://leafletjs.com/reference-1.3.0.html#map-addlayer
 
-let myMapControl = L.control.layers({
+let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.html#control-layers
     "Openstreetmap" : myLayers.osm,
     "Basemap Orthofoto" : myLayers.bmaporthofoto30cm,
     "Basemap Grau" : myLayers.bmapgrau,
