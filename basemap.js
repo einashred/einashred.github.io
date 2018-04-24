@@ -60,6 +60,8 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     
 },{
     "Basemap Overlay" : myLayers.bmapoverlay,
+}{
+    collapsed: false //http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
 })
 myMap.addControl(myMapControl);
 
