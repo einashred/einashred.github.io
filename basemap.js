@@ -76,4 +76,7 @@ let myMapScale = L.control.scale( //http://leafletjs.com/reference-1.3.0.html#co
     //automatisch links unten - optinal befehl position: bottomleft
 ).addTo(myMap);
  
+// options immer mit geschwungener klammer objekt immer in geschwungene klammer
+
+
 
