@@ -6,7 +6,7 @@ let myLayers = {
     
     osm : L.tileLayer( //http://leafletjs.com/reference-1.3.0.html#tilayer 
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            subdomains : ["maps", "maps1", "maps2", "maps3","maps4"],
+            subdomains : ["a", "b", "c",],
             attribution : "Datenquelle: <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
         }
     ),
@@ -60,7 +60,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     
 },{
     "Basemap Overlay" : myLayers.bmapoverlay,
-}{
+},{
     collapsed: false //http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
 })
 myMap.addControl(myMapControl);
