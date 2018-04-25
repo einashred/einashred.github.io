@@ -1,7 +1,7 @@
 let myMap = L.map("mapdiv"); //"http://leafletjs.com/reference-1.3.0.html#map-l-map"
 
 //spricht leaflet bib an erstellt variable myMap, da ist der link zur bib drin, erstellt neue Karte link auf html div //
-
+let markerGroup = L.featureGroup(); 
 let myLayers = {
     
     osm : L.tileLayer( //http://leafletjs.com/reference-1.3.0.html#tilayer 
@@ -52,6 +52,7 @@ let myLayers = {
 myMap.addLayer(myLayers.bmaporthofoto30cm);
 //http://leafletjs.com/reference-1.3.0.html#map-addlayer
 
+
 let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.html#control-layers
     "Openstreetmap" : myLayers.osm,
     "Basemap Orthofoto" : myLayers.bmaporthofoto30cm,
@@ -60,6 +61,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     
 },{
     "Basemap Overlay" : myLayers.bmapoverlay,
+    "Marker" : markerGroup, //das hier ist ein objekt
 },{
     collapsed: false //http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
 })
@@ -81,6 +83,11 @@ let myMapScale = L.control.scale( //http://leafletjs.com/reference-1.3.0.html#co
 const uni = [47.264, 11.385];
 const usi = [47.257, 11.356];
 const technik = [47.263, 11.343];
+const patscherkofel = [47.20889, 11.46083];
+const igls = [47.2308, 11.4106];
+
+
+myMap.addLayer(markerGroup);
 const markerOptions ={
     title: "Universität Innsbruck",
     opacity: 0.7,
@@ -90,9 +97,15 @@ const markerOptions ={
    //http://leafletjs.com/reference-1.3.0.html#marker-l-marker
 // addTo(myMap) fuegt es erst hinzu
 
-L.marker(uni, markerOptions).addTo(myMap);
-L.marker(usi, markerOptions).addTo(myMap);
-L.marker(technik, markerOptions).addTo(myMap);
+L.marker(uni, markerOptions).addTo(markerGroup);
+L.marker(usi, markerOptions).addTo(markerGroup);
+L.marker(technik, markerOptions).addTo(markerGroup);
+L.marker(patscherkofel).addTo(markerGroup).bindPopup("Patscher Kofel" );
+L.marker(igls).addTo(markerGroup);
 
-myMap.setView(uni, 14);
+let patscherkofelMarker = L.marker(patscherkofel).addTo(markerGroup);
+patscherkofelMarker.bindPopup("<p>Patscher Kofel</p><img style = 'width:200px' src='patscher.jpg' alt='Patscherkofl' />")
+myMap.fitBounds(markerGroup.getBounds());
+
+
 // man definiert eine constate für die koordinaten
