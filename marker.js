@@ -78,5 +78,8 @@ let myMapScale = L.control.scale( //http://leafletjs.com/reference-1.3.0.html#co
  
 // options immer mit geschwungener klammer objekt immer in geschwungene klammer
 
-L.marker([47.264, 11.385]).addTo(myMap);   //http://leafletjs.com/reference-1.3.0.html#marker-l-marker
+L.marker([47.264, 11.385], {
+    title: "Universität Innsbruck",
+}).addTo(myMap);   //http://leafletjs.com/reference-1.3.0.html#marker-l-marker
+// addTo(myMap) fuegt es erst hinzu
 
