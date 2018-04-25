@@ -103,9 +103,26 @@ L.marker(technik, markerOptions).addTo(markerGroup);
 L.marker(patscherkofel).addTo(markerGroup).bindPopup("Patscher Kofel" );
 L.marker(igls).addTo(markerGroup);
 
+
+
 let patscherkofelMarker = L.marker(patscherkofel).addTo(markerGroup);
 patscherkofelMarker.bindPopup("<p>Patscher Kofel</p><img style = 'width:200px' src='patscher.jpg' alt='Patscherkofl' />")
+
 myMap.fitBounds(markerGroup.getBounds());
+
+
+let lift = L.polyline([igls,patscherkofel], 
+{
+    color: 'red'
+});
+myMap.addLayer(lift);
+
+let uniPolygon = L.polygon([uni,usi,technik]);
+myMap.addLayer(uniPolygon);
+
+uniPolygon.bindPopup("Ende?");
+
+
 
 
 // man definiert eine constate für die koordinaten
