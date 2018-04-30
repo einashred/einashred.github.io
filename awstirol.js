@@ -95,9 +95,33 @@ const markerOptions ={
     draggable: true,
 };
 
-L.marker(Gehrenspitze).addTo(markerGroup).bindPopup("Gehrenspitze");
-L.marker(Hafelekar).addTo(markerGroup).bindPopup("Hafelekar");
+L.marker(Hafelekar).addTo(markerGroup).bindPopup("Hafelekar" );
 L.marker(HoheMundeGipfel).addTo(markerGroup).bindPopup("Hohe Munde Gipfel" );
+L.marker(HoheMundeWindstation).addTo(markerGroup).bindPopup("Hohe Munde Windstation" );
+L.marker(NassereithWannig).addTo(markerGroup).bindPopup("Nassereith Wannig" );
+L.marker(NassereitherAlm).addTo(markerGroup).bindPopup("Nassereither Alm" );
+L.marker(Puitegg).addTo(markerGroup).bindPopup("Puitegg" );
+L.marker(Rauthhuette).addTo(markerGroup).bindPopup("Rauthhütte" );
+L.marker(RosshuetteWindstation).addTo(markerGroup).bindPopup("Rosshütte Windstation" );
+L.marker(Seegrube).addTo(markerGroup).bindPopup("Seegrube" );
+L.marker(Dalfazkamm).addTo(markerGroup).bindPopup("Dalfazkamm" );
+L.marker(Erfurterhuette).addTo(markerGroup).bindPopup("Erfurtherhütte" );
+L.marker(Agetwoad).addTo(markerGroup).bindPopup("Agetwoad" );
+L.marker(BreiterGrieskogelSchneestation).addTo(markerGroup).bindPopup("Breiter Grieskogel Schneestation" );
+L.marker(BreiterGrieskogelWindstation).addTo(markerGroup).bindPopup("Breiter Grieskogel Windstation" );
+L.marker(Falkaunsalpe).addTo(markerGroup).bindPopup("Falkaunsalpe" );
+L.marker(FranzSennHuetteHorntalerSpitzl).addTo(markerGroup).bindPopup("Franz-Senn-Hütte Horntaler Spitzl" );
+L.marker(FranzSennHuetteKlHorntal).addTo(markerGroup).bindPopup("Franz-Senn-Hütte Horntal" );
+L.marker(LampenspitzeSchneestation).addTo(markerGroup).bindPopup("Lampenspitze Schneestation" );
+L.marker(LampenspitzeWindstation).addTo(markerGroup).bindPopup("Lampenspitze Windstation" );
+L.marker(RoterSchrofen).addTo(markerGroup).bindPopup("Roter Schrofen" );
+L.marker(Sonntagskoepfl).addTo(markerGroup).bindPopup("Sonntagsköpfl" );
+L.marker(SonntagskoepflWindstation).addTo(markerGroup).bindPopup("Sonntagsköpfl Windstation" );
+L.marker(TuxerjochSchneestation).addTo(markerGroup).bindPopup("Tuxerjoch Schneestation" );
+L.marker(TuxerjochWindstation).addTo(markerGroup).bindPopup("Tuxerjoch Windstation" );
+L.marker(WandspitzeSchneestation).addTo(markerGroup).bindPopup("Wandspitze Schneestation" );
+L.marker(WandspitzeWindstation).addTo(markerGroup).bindPopup("Wandspitze Windstation" );
+
 
 let GehrenspitzeMarker = L.marker(Gehrenspitze).addTo(markerGroup);
 let HafelekarMarker = L.marker(Hafelekar).addTo(markerGroup);
