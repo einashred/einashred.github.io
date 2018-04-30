@@ -55,13 +55,22 @@ let myMapScale = L.control.scale( //http://leafletjs.com/reference-1.3.0.html#co
 //const uni = [47.264, 11.385];
 //const patscherkofel = [47.20889, 11.46083];
 
-
+const Gehrenspitze = [47.387131, 11.133717];
 
 myMap.addLayer(markerGroup);
 const markerOptions ={
     opacity: 0.7,
     draggable: true,
 };
+
+L.marker(Gehrenspitze).addTo(markerGroup).bindPopup("Gehrenspitze" );
+
+let GehrenspitzeMarker = L.marker(Gehrenspitze).addTo(markerGroup);
+//gehrenspitzeMarker.bindPopup("<p>Gehrenspitze</p><p>Temperatur: 0.6</p><p>Datum: 2018-04-26 T08:00:00+02:00</p><p>Link: https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png</p>")
+
+GehrenspitzeMarker.bindPopup("<p>Station: Gehrenspitze </br> Temperatur: 0.6 </br> Datum: 2018-04-26</p><img style='width:300px' src='https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png' alt='Gehrenspitze' />");
+
+//name":"Gehrenspitze","temperatur":"0.6","datum":"2018-04-26T08:00:00+02:00","link":"https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png
 
 //http://leafletjs.com/reference-1.3.0.html#marker-l-marker
 // addTo(myMap) fuegt es erst hinzu
