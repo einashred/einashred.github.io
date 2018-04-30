@@ -126,6 +126,29 @@ L.marker(WandspitzeWindstation).addTo(markerGroup).bindPopup("Wandspitze Windsta
 let GehrenspitzeMarker = L.marker(Gehrenspitze).addTo(markerGroup);
 let HafelekarMarker = L.marker(Hafelekar).addTo(markerGroup);
 let HoheMundeGipfelMarker = L.marker(HoheMundeGipfel).addTo(markerGroup);
+let HoheMundeWindstationMarker = L.marker(HoheMundeWindstation).addTo(markerGroup);
+let NassereithWannigMarker = L.marker(NassereithWannig).addTo(markerGroup);
+let NassereitherAlmMarker = L.marker(NassereitherAlm).addTo(markerGroup);
+let PuiteggMarker = L.marker(Puitegg).addTo(markerGroup);
+let RauthhuetteMarker = L.marker(Rauthhuette).addTo(markerGroup);
+let RosshuetteWindstationMarker = L.marker(RosshuetteWindstation).addTo(markerGroup);
+let SeegrubeMarker = L.marker(Seegrube).addTo(markerGroup);
+let DalfazkammMarker = L.marker(Dalfazkamm).addTo(markerGroup);
+let ErfurterhuetteMarker = L.marker(Erfurterhuette).addTo(markerGroup);
+let AgetwoadMarker = L.marker(Agetwoad).addTo(markerGroup);
+let BreiterGrieskogelSchneestationMarker = L.marker(BreiterGrieskogelSchneestation).addTo(markerGroup);
+let BreiterGrieskogelWindstationMarker = L.marker(BreiterGrieskogelWindstation).addTo(markerGroup);
+let FalkaunsalpeMarker = L.marker(Falkaunsalpe).addTo(markerGroup);
+let FranzSennHuetteHorntalerSpitzlMarker = L.marker(FranzSennHuetteHorntalerSpitzl).addTo(markerGroup);
+let LampenspitzeSchneestationMarker = L.marker(LampenspitzeSchneestation).addTo(markerGroup);
+let LampenspitzeWindstationMarker = L.marker(LampenspitzeWindstation).addTo(markerGroup);
+let RoterSchrofenMarker = L.marker(RoterSchrofen).addTo(markerGroup);
+let SonntagskoepflMarker = L.marker(Sonntagskoepfl).addTo(markerGroup);
+let SonntagskoepflWindstationMarker = L.marker(SonntagskoepflWindstation).addTo(markerGroup);
+let TuxerjochSchneestationMarker = L.marker(TuxerjochSchneestation).addTo(markerGroup);
+let TuxerjochWindstationMarker = L.marker(TuxerjochWindstation).addTo(markerGroup);
+let WandspitzeSchneestationMarker = L.marker(WandspitzeSchneestation).addTo(markerGroup);
+let WandspitzeWindstationMarker = L.marker(WandspitzeWindstation).addTo(markerGroup);
 
 
 
