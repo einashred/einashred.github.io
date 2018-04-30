@@ -24,13 +24,14 @@ let myLayers = {
 
 
 
-myMap.addLayer(myLayers.bmaporthofoto30cm);
+myMap.addLayer(myLayers.geolandbasemap);
 //http://leafletjs.com/reference-1.3.0.html#map-addlayer
 
 
 let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.html#control-layers
-    "Orthofoto" : myLayers.bmaporthofoto30cm,
     "Basemap" : myLayers.geolandbasemap,
+    "Orthofoto" : myLayers.bmaporthofoto30cm,
+    
     
 },{
     "Marker" : markerGroup, //das hier ist ein objekt
@@ -86,7 +87,7 @@ const Gehrenspitze = [47.387131, 11.133717];
     const TuxerjochWindstation = [47.089717, 11.648987]; 
     const WandspitzeSchneestation = [47.121858, 11.661969]; 
     const WandspitzeWindstation = [47.120752, 11.658062]; 
-];
+
 
 myMap.addLayer(markerGroup);
 const markerOptions ={
@@ -94,40 +95,27 @@ const markerOptions ={
     draggable: true,
 };
 
-L.marker(Gehrenspitze).addTo(markerGroup).bindPopup("Gehrenspitze" );
+L.marker(Gehrenspitze).addTo(markerGroup).bindPopup("Gehrenspitze");
+L.marker(Hafelekar).addTo(markerGroup).bindPopup("Hafelekar");
+L.marker(HoheMundeGipfel).addTo(markerGroup).bindPopup("Hohe Munde Gipfel" );
 
 let GehrenspitzeMarker = L.marker(Gehrenspitze).addTo(markerGroup);
-//gehrenspitzeMarker.bindPopup("<p>Gehrenspitze</p><p>Temperatur: 0.6</p><p>Datum: 2018-04-26 T08:00:00+02:00</p><p>Link: https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png</p>")
+let HafelekarMarker = L.marker(Hafelekar).addTo(markerGroup);
+let HoheMundeGipfelMarker = L.marker(HoheMundeGipfel).addTo(markerGroup);
+
+
+
 
 GehrenspitzeMarker.bindPopup("<p>Station: Gehrenspitze </br> Temperatur: 0.6 </br> Datum: 2018-04-26</p><img style='width:300px' src='https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png' alt='Gehrenspitze' />");
+HafelekarMarker.bindPopup("<p>Station: Gehrenspitze </br> Temperatur: 0.6 </br> Datum: 2018-04-26</p><img style='width:300px' src='https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png' alt='Gehrenspitze' />");
+HoheMundeGipfelMarker.bindPopup("<p>Station: Gehrenspitze </br> Temperatur: 0.6 </br> Datum: 2018-04-26</p><img style='width:300px' src='https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png' alt='Gehrenspitze' />");
 
-//name":"Gehrenspitze","temperatur":"0.6","datum":"2018-04-26T08:00:00+02:00","link":"https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png
-
-//http://leafletjs.com/reference-1.3.0.html#marker-l-marker
-// addTo(myMap) fuegt es erst hinzu
-
-//L.marker(uni, markerOptions).addTo(markerGroup);
-//L.marker(patscherkofel).addTo(markerGroup).bindPopup("Patscher Kofel" );
-
-
-//let patscherkofelMarker = L.marker(patscherkofel).addTo(markerGroup);
-//patscherkofelMarker.bindPopup("<p>Patscher Kofel</p><img style = 'width:200px' src='patscher.jpg' alt='Patscherkofl' />")
 
 myMap.fitBounds(markerGroup.getBounds());
 
 
-//let lift = L.polyline([igls,patscherkofel], 
-//{
-  //  color: 'red'
-//});
-//myMap.addLayer(lift);
-
-//let uniPolygon = L.polygon([uni,usi,technik]);
-//myMap.addLayer(uniPolygon);
-
-//uniPolygon.bindPopup("Ende?");
 
 
 
 
-// man definiert eine constate für die koordinaten
+

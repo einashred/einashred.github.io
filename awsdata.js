@@ -4,15 +4,38 @@
 
 
 
-L.marker(Gehrenspitze).addTo(markerGroup).bindPopup("Gehrenspitze" );
+L.marker(Hafelekar).addTo(markerGroup).bindPopup("Hafelekar" );
+L.marker(HoheMundeGipfel).addTo(markerGroup).bindPopup("Hohe Munde Gipfel" );
+L.marker(HoheMundeWindstation).addTo(markerGroup).bindPopup("Hohe Munde Windstation" );
+L.marker(NassereithWannig).addTo(markerGroup).bindPopup("Nassereith Wannig" );
+L.marker(NassereitherAlm).addTo(markerGroup).bindPopup("Nassereither Alm" );
+L.marker(Puitegg).addTo(markerGroup).bindPopup("Puitegg" );
+L.marker(Rauthhuette).addTo(markerGroup).bindPopup("Rauthhütte" );
+L.marker(RosshuetteWindstation).addTo(markerGroup).bindPopup("Rosshütte Windstation" );
+L.marker(Seegrube).addTo(markerGroup).bindPopup("Seegrube" );
+L.marker(Dalfazkamm).addTo(markerGroup).bindPopup("Dalfazkamm" );
+L.marker(Erfurterhuette).addTo(markerGroup).bindPopup("Erfurtherhütte" );
+L.marker(Agetwoad).addTo(markerGroup).bindPopup("Agetwoad" );
+L.marker(BreiterGrieskogelSchneestation).addTo(markerGroup).bindPopup("Breiter Grieskogel Schneestation" );
+L.marker(BreiterGrieskogelWindstation).addTo(markerGroup).bindPopup("Breiter Grieskogel Windstation" );
+L.marker(Falkaunsalpe).addTo(markerGroup).bindPopup("Falkaunsalpe" );
+L.marker(FranzSennHuetteHorntalerSpitzl).addTo(markerGroup).bindPopup("Franz-Senn-Hütte Horntaler Spitzl" );
+L.marker(FranzSennHuetteKlHorntal).addTo(markerGroup).bindPopup("Franz-Senn-Hütte Horntal" );
+L.marker(LampenspitzeSchneestation).addTo(markerGroup).bindPopup("Lampenspitze Schneestation" );
+L.marker(LampenspitzeWindstation).addTo(markerGroup).bindPopup("Lampenspitze Windstation" );
+L.marker(RoterSchrofen).addTo(markerGroup).bindPopup("Roter Schrofen" );
+L.marker(Sonntagskoepfl).addTo(markerGroup).bindPopup("Sonntagsköpfl" );
+L.marker(SonntagskoepflWindstation).addTo(markerGroup).bindPopup("Sonntagsköpfl Windstation" );
+L.marker(TuxerjochSchneestation).addTo(markerGroup).bindPopup("Tuxerjoch Schneestation" );
+L.marker(TuxerjochWindstation).addTo(markerGroup).bindPopup("Tuxerjoch Windstation" );
+L.marker(WandspitzeSchneestation).addTo(markerGroup).bindPopup("Wandspitze Schneestation" );
+L.marker(WandspitzeWindstation).addTo(markerGroup).bindPopup("Wandspitze Windstation" );
+
 
 let GehrenspitzeMarker = L.marker(Gehrenspitze).addTo(markerGroup);
 //gehrenspitzeMarker.bindPopup("<p>Gehrenspitze</p><p>Temperatur: 0.6</p><p>Datum: 2018-04-26 T08:00:00+02:00</p><p>Link: https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png</p>")
 
 GehrenspitzeMarker.bindPopup("<p>Station: Gehrenspitze </br> Temperatur: 0.6 </br> Datum: 2018-04-26</p><img style='width:300px' src='https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png' alt='Gehrenspitze' />");
-
-
-
 let awsdata = [
     const Gehrenspitze = [47.387131, 11.133717] Gehrenspitze","temperatur":"0.6","datum":"2018-04-26T08:00:00+02:00","link":"https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png"},
     const Hafelekar = [47.312079, 11.383623] Hafelekar","temperatur":"1.6","datum":"2018-04-26T08:10:00+02:00","link":"https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/seegrube.png"},
