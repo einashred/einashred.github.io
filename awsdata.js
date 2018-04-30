@@ -4,6 +4,13 @@
 
 
 
+L.marker(Gehrenspitze).addTo(markerGroup).bindPopup("Gehrenspitze" );
+
+let GehrenspitzeMarker = L.marker(Gehrenspitze).addTo(markerGroup);
+//gehrenspitzeMarker.bindPopup("<p>Gehrenspitze</p><p>Temperatur: 0.6</p><p>Datum: 2018-04-26 T08:00:00+02:00</p><p>Link: https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png</p>")
+
+GehrenspitzeMarker.bindPopup("<p>Station: Gehrenspitze </br> Temperatur: 0.6 </br> Datum: 2018-04-26</p><img style='width:300px' src='https://lawine.tirol.gv.at/data/grafiken/540/standard/dreitage/puitegg.png' alt='Gehrenspitze' />");
+
 
 
 let awsdata = [

@@ -56,6 +56,37 @@ let myMapScale = L.control.scale( //http://leafletjs.com/reference-1.3.0.html#co
 //const patscherkofel = [47.20889, 11.46083];
 
 const Gehrenspitze = [47.387131, 11.133717];
+    const Hafelekar = [47.312079, 11.383623]; 
+    const HoheMundeGipfel = [47.346295, 11.080385];
+    const HoheMundeWindstation = [47.346612, 11.083694]; 
+    const NassereithWannig = [47.336922, 10.862333]; 
+    const NassereitherAlm = [47.344376, 10.849554]; 
+    const Puitegg = [47.394844, 11.152817]; 
+    const Rauthhuette = [47.345909, 11.104943]; 
+    const RosshuetteWindstation = [47.342025, 11.227903]; 
+    const Seegrube = [47.3063819943737, 11.3779335010812]; 
+    const Dalfazkamm = [47.448514, 11.751511]; 
+    const Erfurterhuette = [47.441861, 11.762127]; 
+    const Agetwoad = [47.069889, 10.862306]; 
+    const BreiterGrieskogelSchneestation = [47.0839527777778, 11.0273833333333]; 
+    const BreiterGrieskogelWindstation = [47.1010555555556, 11.0230388888889]; 
+    const Falkaunsalpe = [47.071488, 10.76282]; 
+    const FranzSennHuetteHorntalerSpitzl = [47.099611, 11.15541667]; 
+    const FranzSennHuetteKlHorntal = [47.0960000187559, 11.1623888694066]; 
+    const LampenspitzeSchneestation = [47.153491, 11.120722]; 
+    const LampenspitzeWindstation = [47.156075, 11.095642]; 
+    const RoterSchrofen = [47.04, 10.7181]; 
+    const SchlickerAlm = [47.154432, 11.303207]; 
+    const SeirloecherKogel = [47.0339, 10.8528]; 
+    const Laemmerbichlalm = [47.181266, 11.751717]; 
+    const RastkogelWindstation = [47.192132, 11.767481]; 
+    const Sonntagskoepfl = [47.2750109996958, 11.7520860028295]; 
+    const SonntagskoepflWindstation = [47.271989, 11.755802]; 
+    const TuxerjochSchneestation = [47.093149, 11.648053]; 
+    const TuxerjochWindstation = [47.089717, 11.648987]; 
+    const WandspitzeSchneestation = [47.121858, 11.661969]; 
+    const WandspitzeWindstation = [47.120752, 11.658062]; 
+];
 
 myMap.addLayer(markerGroup);
 const markerOptions ={
