@@ -1,5 +1,5 @@
 let myMap = L.map("mapdiv"); //"http://leafletjs.com/reference-1.3.0.html#map-l-map"
-const awsGroup = L.featureGroup();
+const wiengroup = L.featureGroup().addTo(myMap);
 
 //spricht leaflet bib an erstellt variable myMap, da ist der link zur bib drin, erstellt neue Karte link auf html div //
 let markerGroup = L.featureGroup(); 
@@ -50,7 +50,7 @@ let myLayers = {
 
 
 
-myMap.addLayer(myLayers.bmaporthofoto30cm);
+myMap.addLayer(myLayers.osm);
 //http://leafletjs.com/reference-1.3.0.html#map-addlayer
 
 
@@ -62,7 +62,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     
 },{
     "Basemap Overlay" : myLayers.bmapoverlay,
-    "Wetterstationen": awsGroup
+    "Spaziergang": wiengroup
    
 },{
     collapsed: false //http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
@@ -70,7 +70,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
 myMap.addControl(myMapControl);
 
 
-myMap.setView([47.267,11.383],11);
+//myMap.setView([16.381940283134707,48.20785995958346],11);
 //fuegt koordinaten ein, für die variablen http://leafletjs.com/reference-1.3.0.html#map-setview
 
 let myMapScale = L.control.scale( //http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
@@ -103,15 +103,17 @@ const markerOptions ={
 //myMap.fitBounds(markerGroup.getBounds());
 
 // man definiert eine constate für die koordinaten
+console.log("seppl!");
+console.log("Stationen: ", spaziergang);
 
-console.log("Stationen: ", stationen);
-
-let geojson = L.geoJSON(stationen).addTo(awsGroup);
+let geojson = L.geoJSON(spaziergang).addTo(wiengroup);
 geojson.bindPopup(function(layer){
     const props = layer.feature.properties;
-    const popupText = `<h1>${props.name}</h1>
-    <p>Temperatur: ${props.LT} °C </p>`;
+    const popupText = `<h1>${props.NAME}</h1>
+    <p>Temperatur: ${props.ADRESSE} °C </p>`;
 
     return popupText;
-//console.log("Layer for popup:", layer);
+
 });
+
+myMap.fitBounds(geojson.getBounds());
