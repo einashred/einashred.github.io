@@ -62,7 +62,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     
 },{
     "Basemap Overlay" : myLayers.bmapoverlay,
-    "Spaziergang": wiengroup
+    "Biketour": wiengroup
    
 },{
     collapsed: false //http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
@@ -104,7 +104,7 @@ const markerOptions ={
 
 // man definiert eine constate für die koordinaten
 console.log("seppl!");
-console.log("Stationen: ", spaziergang);
+console.log("Stationen: ", biketour);
 
 async function addGeojson(url) {
     console.log("url ist geladen:", url);
@@ -118,19 +118,19 @@ async function addGeojson(url) {
         pointToLayer: function(geoJsonPoint, latlng) {
             return L.marker(latlng,{
                 icon: L.icon({
-                    iconUrl: "sight-2.png"
+                    iconUrl: "cycling.png"
                 })
             });
 
         }
     })
-    console.log("GeoJson:", wiendata);
+    console.log("GeoJson:", biketour);
     //let geojson = L.geoJSON(wiendata);
     wiengroup.addLayer(geojson); 
     myMap.fitBounds(wiengroup.getBounds());
 };
 //http://leafletjs.com/reference-1.3.0.html#icon
-const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:SPAZIERPUNKTOGD,ogdwien:SPAZIERLINIEOGD";
+const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:CITYBIKEOGD&srsName=EPSG:4326&outputFormat=json";
 addGeojson(url);
 
 myMap.addLayer(wiengroup);
