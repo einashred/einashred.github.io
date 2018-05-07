@@ -110,8 +110,8 @@ async function addGeojson(url) {
     console.log("url ist geladen:", url);
     const response = await fetch(url);
     console.log("Response:", response);
-    const wiendata = await response.json();
-    const geojson = L.geoJSON(wiendata, {
+    const wienbikedaten = await response.json();
+    const geojson = L.geoJSON(wienbikedaten, {
         style: function(feature) {
             return { color: "#ff0000"};
         },
@@ -130,7 +130,7 @@ async function addGeojson(url) {
     myMap.fitBounds(wiengroup.getBounds());
 };
 //http://leafletjs.com/reference-1.3.0.html#icon
-const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:CITYBIKEOGD&srsName=EPSG:4326&outputFormat=json";
+const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json";
 addGeojson(url);
 
 myMap.addLayer(wiengroup);

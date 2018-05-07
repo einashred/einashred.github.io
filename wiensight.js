@@ -62,7 +62,7 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     
 },{
     "Basemap Overlay" : myLayers.bmapoverlay,
-    "Spaziergang": wiengroup
+    "Sehenswürdigkeiten": wiengroup
    
 },{
     collapsed: false //http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
@@ -104,27 +104,27 @@ const markerOptions ={
 
 // man definiert eine constate für die koordinaten
 console.log("seppl!");
-console.log("Stationen: ", spaziergang);
+console.log("Stationen: ", sehenswuerdigkeiten);
 
 async function addGeojson(url) {
     console.log("url ist geladen:", url);
     const response = await fetch(url);
     console.log("Response:", response);
-    const wiendata = await response.json();
-    const geojson = L.geoJSON(wiendata, {
+    const wiensightdaten = await response.json();
+    const geojson = L.geoJSON(wiensightdaten, {
         style: function(feature) {
             return { color: "#ff0000"};
         },
         pointToLayer: function(geoJsonPoint, latlng) {
             return L.marker(latlng,{
                 icon: L.icon({
-                    iconUrl: "sight-2.png"
+                    iconUrl: "monument.png"
                 })
             });
 
         }
     })
-    console.log("GeoJson:", wiendata);
+    console.log("GeoJson:", wiensightdaten);
     //let geojson = L.geoJSON(wiendata);
     wiengroup.addLayer(geojson); 
     myMap.fitBounds(wiengroup.getBounds());
