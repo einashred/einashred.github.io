@@ -75,6 +75,18 @@ async function ladeGeojsonLayer(url) {
     karte.fitBounds(geojsonGruppe.getBounds());
 }
 
+wienDatensaetze.sort(function(a,b){ 
+    if(a.titel < b.titel) {
+        return -1;
+    } else if (a.titel > b.titel){
+        return 1;
+    } else {
+        return 0;
+    }
+
+})
+//durch diese Commands wird das drop down menü alphabetisch geordnet
+
 // den GeoJSON Layer für Grillplätze laden
 // vorschleife sorgt dafür dass alle datenstze hinzugefügt werden
 
@@ -85,5 +97,8 @@ for (datensatz of wienDatensaetze){
     layerAuswahl.innerHTML +=  `<option value="${datensatz.json}">${datensatz.titel}</option>` //backtips um variablen ersätzen zu können mit $ und {}klammern
     console.log(datensatz.titel)
 }
+layerAuswahl.onchange = function(evt) {
+    geojsonGruppe.clearLayers();
+    ladeGeojsonLayer(evt.target.value);
 
-console.log(wienDatensaetze)
+} //wenn sich bei der layer auswahl was ändert dann mach eine funktion
