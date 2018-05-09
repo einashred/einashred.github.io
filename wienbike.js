@@ -3,6 +3,8 @@ const wiengroup = L.featureGroup().addTo(myMap);
 
 //spricht leaflet bib an erstellt variable myMap, da ist der link zur bib drin, erstellt neue Karte link auf html div //
 let markerGroup = L.featureGroup(); 
+let markersCluster = L.markerClusterGroup().addTo(myMap);
+
 let myLayers = {
     
     osm : L.tileLayer( //http://leafletjs.com/reference-1.3.0.html#tilayer 
@@ -126,16 +128,21 @@ async function addGeojson(url) {
     })
     console.log("GeoJson:", biketour);
     //let geojson = L.geoJSON(wiendata);
-    wiengroup.addLayer(geojson); 
-    myMap.fitBounds(wiengroup.getBounds());
+    markersCluster.addLayer(geojson); 
+    myMap.fitBounds(markersCluster.getBounds());
     var hash = new L.Hash(myMap); //bindet leaflet.has in popup in html ein zeit koordinaten in htmladresse an
    
-    var markers = L.markerClusterGroup();
-markers.addLayer(wiengroup);
-myMap.addLayer(markers);
+    myMap.addControl( new L.Control.Search({
+        layer: markersCluster,
+        propertyName: 'STATION'
+    
+    })
+ );
+
+
 };
 //http://leafletjs.com/reference-1.3.0.html#icon
-const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json";
+const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:CITYBIKEOGD&srsName=EPSG:4326&outputFormat=json";
 addGeojson(url);
 
 myMap.addLayer(wiengroup);
