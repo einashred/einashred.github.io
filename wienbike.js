@@ -128,6 +128,11 @@ async function addGeojson(url) {
     //let geojson = L.geoJSON(wiendata);
     wiengroup.addLayer(geojson); 
     myMap.fitBounds(wiengroup.getBounds());
+    var hash = new L.Hash(myMap); //bindet leaflet.has in popup in html ein zeit koordinaten in htmladresse an
+   
+    var markers = L.markerClusterGroup();
+markers.addLayer(wiengroup);
+myMap.addLayer(markers);
 };
 //http://leafletjs.com/reference-1.3.0.html#icon
 const url = "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:SEHENSWUERDIGOGD&srsName=EPSG:4326&outputFormat=json";
