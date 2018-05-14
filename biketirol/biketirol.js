@@ -33,10 +33,10 @@ let myMap = L.map("map");
 const etappe = L.featureGroup();
 
 let myLayers = {
-     osm: L.tileLayer(
+    osm : L.tileLayer( 
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            subdomains: ["a", "b", "c"],
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            subdomains : ["a", "b", "c",],
+            attribution : "Datenquelle: <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
         }
     ),
     geolandbasemap: L.tileLayer(
@@ -67,7 +67,7 @@ let myLayers = {
         }
     ),
     }
-    myMap.addLayer(myLayers.osm);
+    myMap.addLayer(myLayers.geolandbasemap);
 
     myMap.addLayer(etappe);
 
@@ -137,4 +137,4 @@ geojson.bindPopup(function(layer){
 
 });
 
-myMap.fitBounds(biketour.getBounds());
+myMap.fitBounds(etappe.getBounds());
