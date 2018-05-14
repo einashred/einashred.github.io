@@ -1,10 +1,10 @@
-const etappedaten = {
+let biketourdata = {
     "type": "FeatureCollection",
     "features": [
         {
             "type": "Feature",
             "properties": {
-                "name": "211"
+                "name": "Bike Tour Etappe 21"
             },
             "geometry": {
                 "type": "LineString",

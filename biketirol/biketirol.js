@@ -28,11 +28,10 @@
 // Overlay controls zum unabhängigem Ein-/Ausschalten der Route und Marker hinzufügen
 
 
-let myMap = L.map("map"); //"http://leafletjs.com/reference-1.3.0.html#map-l-map"
-const dataEtappe21 = L.featureGroup().addTo(myMap);
+let myMap = L.map("map"); 
 
-//spricht leaflet bib an erstellt variable myMap, da ist der link zur bib drin, erstellt neue Karte link auf html div //
-let markerGroup = L.featureGroup(); 
+const etappe = L.featureGroup();
+
 let myLayers = {
      osm: L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -47,26 +46,33 @@ let myLayers = {
         }
     ),
     elektronischekartesummer: L.tileLayer(
-        "http://{s}.wmts.kartetirol.at/wmts/gdi_base_summer/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
-            attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
+        "http://wmts.kartetirol.at/wmts/gdi_base_summer/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80",{
+        minZoom: 0,
+        maxZoom: 18,
+        attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
         }
     ),
     elektronischekartewinter: L.tileLayer(
-        "http://{s}.wmts.kartetirol.at/wmts/gdi_base_winter/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
-            attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
+        "http://wmts.kartetirol.at/wmts/gdi_base_winter/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80",{
+        minZoom: 0,
+        maxZoom: 18,
+        attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
         }
     ),
     elektronischekarteortho: L.tileLayer(
-        "http://{s}.wmts.kartetirol.at/wmts/gdi_ortho/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
-            attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
+        "http://wmts.kartetirol.at/wmts/gdi_ortho/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80",{
+        minZoom: 0,
+        maxZoom: 18,
+        attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
         }
     ),
     }
     myMap.addLayer(myLayers.osm);
-//http://leafletjs.com/reference-1.3.0.html#map-addlayer
+
+    myMap.addLayer(etappe);
 
 
-let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.html#control-layers
+let myMapControl = L.control.layers({ 
     "Openstreetmap": myLayers.osm,
     "basemap.at Grundkarte": myLayers.geolandbasemap,
     "Elektronische Karte Tirol Sommer": myLayers.elektronischekartesummer,
@@ -74,19 +80,19 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
     "Elektronische Karte Tirol Ortho": myLayers.elektronischekarteortho,
     
 },{
-    "Etappe 21": dataEtappe21
+    "Etappe 21": etappe,
    
 },{
-    collapsed: false //http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
-})
-myMap.addControl(myMapControl);
+    collapsed: false 
+}).addTo(myMap);
 
 
-let myMapScale = L.control.scale( //http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
-    {metric: true, //http://leafletjs.com/reference-1.3.0.html#control-scale-metric
-    imperial: false, //http://leafletjs.com/reference-1.3.0.html#control-scale-imperial
-    maxWidth: 200} //http://leafletjs.com/reference-1.3.0.html#control-scale-maxwidth
-    //automatisch links unten - optinal befehl position: bottomleft
+let myMapScale = L.control.scale( 
+    {
+    metric: true, 
+    imperial: false, 
+    maxWidth: 200
+} 
 ).addTo(myMap);
 
 const SZ_Koordinaten = {
@@ -107,25 +113,26 @@ const myIconZiel = L.icon({
 const markerOptionStart = {
     title: "Windegg",
     draggable: false,
-    opacity: 0.9,
+    opacity: 0.90,
     icon: myIconStart,
 };
 
 const markerOptionZiel = {
     title: "Matrei",
     draggable: false,
-    opacity: 0.9,
+    opacity: 0.90,
     icon: myIconZiel
 };
 
-L.marker(SZ_Koordinaten.start, markerOptionStart).bindPopup("<p>Start: Windegg</p><a href='https://de.wikipedia.org/wiki/Windegg'>Wikipedia Windegg</a>")
-L.marker(SZ_Koordinaten.ziel, markerOptionZiel).bindPopup("<p>Ziel: Matrei</p><a href='https://de.wikipedia.org/wiki/Matrei_in_Osttirol'>Wikipedia Matrei</a>")
+L.marker(SZ_Koordinaten.start, markerOptionStart).bindPopup("<p>Start: Windegg</p><a href='https://de.wikipedia.org/wiki/Windegg'>Wikipedia Windegg</a>").addTo(etappe);
+L.marker(SZ_Koordinaten.ziel, markerOptionZiel).bindPopup("<p>Ziel: Matrei</p><a href='https://de.wikipedia.org/wiki/Matrei_in_Osttirol'>Wikipedia Matrei</a>").addTo(etappe);
 
-const geojson = L.geoJSON(dataEtappe21).addTo(etappe);
+const geojson = L.geoJSON(biketourdata).addTo(etappe);
 
 geojson.bindPopup(function(layer){
     const props = layer.feature.properties;
-    const popupText = '<h2>${props.name}</h2>'
+    const popupText = `<h2>${props.name}</h2>
+    <p>Windegg - Matrei</p>`
     return popupText;
 
 });

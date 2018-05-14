@@ -1,5 +1,4 @@
-const etappe = [{
-    "type": "FeatureCollection",
+let dataEtappe21 = {
     "features": [
         {
             "type": "Feature",
