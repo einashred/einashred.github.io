@@ -47,17 +47,17 @@ let myLayers = {
         }
     ),
     elektronischekartesummer: L.tileLayer(
-        "http://wmts.kartetirol.at/wmts/gdi_base_summer/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
+        "http://{s}.wmts.kartetirol.at/wmts/gdi_base_summer/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
             attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
         }
     ),
     elektronischekartewinter: L.tileLayer(
-        "http://wmts.kartetirol.at/wmts/gdi_base_winter/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
+        "http://{s}.wmts.kartetirol.at/wmts/gdi_base_winter/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
             attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
         }
     ),
     elektronischekarteortho: L.tileLayer(
-        "http://wmts.kartetirol.at/wmts/gdi_ortho/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
+        "http://{s}.wmts.kartetirol.at/wmts/gdi_ortho/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
             attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
         }
     ),
@@ -82,12 +82,52 @@ let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.htm
 myMap.addControl(myMapControl);
 
 
-//myMap.setView([16.381940283134707,48.20785995958346],11);
-//fuegt koordinaten ein, für die variablen http://leafletjs.com/reference-1.3.0.html#map-setview
-
 let myMapScale = L.control.scale( //http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
     {metric: true, //http://leafletjs.com/reference-1.3.0.html#control-scale-metric
     imperial: false, //http://leafletjs.com/reference-1.3.0.html#control-scale-imperial
     maxWidth: 200} //http://leafletjs.com/reference-1.3.0.html#control-scale-maxwidth
     //automatisch links unten - optinal befehl position: bottomleft
 ).addTo(myMap);
+
+const SZ_Koordinaten = {
+    start : [47.261389, 11.553201],
+    ziel : [47.134239, 11.452475],
+};
+
+const myIconStart = L.icon({
+    iconUrl: 'images/cycling_start.png',
+    iconAnchor: [16, 37]
+});
+
+const myIconZiel = L.icon({
+    iconUrl: 'images/cycling_ziel.png',
+    iconAnchor: [16,37]
+});
+
+const markerOptionStart = {
+    title: "Windegg",
+    draggable: false,
+    opacity: 0.9,
+    icon: myIconStart,
+};
+
+const markerOptionZiel = {
+    title: "Matrei",
+    draggable: false,
+    opacity: 0.9,
+    icon: myIconZiel
+};
+
+L.marker(SZ_Koordinaten.start, markerOptionStart).bindPopup("<p>Start: Windegg</p><a href='https://de.wikipedia.org/wiki/Windegg'>Wikipedia Windegg</a>")
+L.marker(SZ_Koordinaten.ziel, markerOptionZiel).bindPopup("<p>Ziel: Matrei</p><a href='https://de.wikipedia.org/wiki/Matrei_in_Osttirol'>Wikipedia Matrei</a>")
+
+const geojson = L.geoJSON(dataEtappe21).addTo(etappe);
+
+geojson.bindPopup(function(layer){
+    const props = layer.feature.properties;
+    const popupText = '<h2>${props.name}</h2>'
+    return popupText;
+
+});
+
+myMap.fitBounds(biketour.getBounds());

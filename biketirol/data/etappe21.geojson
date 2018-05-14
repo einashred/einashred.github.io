@@ -1,4 +1,4 @@
-const dataEtappe21 = [{
+const etappe = [{
     "type": "FeatureCollection",
     "features": [
         {

@@ -1,4 +1,4 @@
-const dataetappe = {
+const etappedaten = {
     "type": "FeatureCollection",
     "features": [
         {
