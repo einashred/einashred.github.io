@@ -28,15 +28,13 @@
 // Overlay controls zum unabhängigem Ein-/Ausschalten der Route und Marker hinzufügen
 
 
-// Leaflet Karte initialisieren
-let karte = L.map("divKarte");
+let myMap = L.map("map"); //"http://leafletjs.com/reference-1.3.0.html#map-l-map"
+const dataEtappe21 = L.featureGroup().addTo(myMap);
 
-// Gruppe für GeoJSON Layer definieren
-let geojsonGruppe = L.featureGroup().addTo(karte);
-
-// Grundkartenlayer definieren
-const grundkartenLayer = {
-    osm: L.tileLayer(
+//spricht leaflet bib an erstellt variable myMap, da ist der link zur bib drin, erstellt neue Karte link auf html div //
+let markerGroup = L.featureGroup(); 
+let myLayers = {
+     osm: L.tileLayer(
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             subdomains: ["a", "b", "c"],
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -48,87 +46,48 @@ const grundkartenLayer = {
             attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
         }
     ),
-    bmapoverlay: L.tileLayer(
-        "https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
-            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
-            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
+    elektronischekartesummer: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_base_summer/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
+            attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
         }
     ),
-    bmapgrau: L.tileLayer(
-        "https://{s}.wien.gv.at/basemap/bmapgrau/normal/google3857/{z}/{y}/{x}.png", {
-            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
-            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
+    elektronischekartewinter: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_base_winter/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
+            attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
         }
     ),
-    bmaphidpi: L.tileLayer(
-        "https://{s}.wien.gv.at/basemap/bmaphidpi/normal/google3857/{z}/{y}/{x}.jpeg", {
-            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
-            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
+    elektronischekarteortho: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_ortho/GoogleMapsCompatible/{z}/{y}/{x}.jpeg80",{
+            attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
         }
     ),
-    bmaporthofoto30cm: L.tileLayer(
-        "https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg", {
-            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
-            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
-        }
-    ),
-}
-
-// Map control mit Grundkarten und GeoJSON Overlay definieren
-let kartenAuswahl = L.control.layers({
-    "Openstreetmap": grundkartenLayer.osm,
-    "basemap.at Grundkarte": grundkartenLayer.geolandbasemap,
-    "basemap.at grau": grundkartenLayer.bmapgrau,
-    "basemap.at Orthofoto": grundkartenLayer.bmaporthofoto30cm,
-}, {
-    "GeoJSON Layer": geojsonGruppe,
-});
-karte.addControl(kartenAuswahl);
-
-// Grundkarte "grau" laden
-karte.addLayer(grundkartenLayer.bmapgrau)
-
-// Maßstabsleiste metrisch hinzufügen
-L.control.scale({
-    maxWidth: 200,
-    imperial: false,
-}).addTo(karte);
-
-// asynchrone Funktion zum Laden eines GeoJSON Layers
-async function ladeGeojsonLayer(url) {
-    const response = await fetch(url);
-    const response_json = await response.json();
-
-    // GeoJSON Geometrien hinzufügen und auf Ausschnitt zoomen
-    const geojsonObjekt = L.geoJSON(response_json);
-    geojsonGruppe.addLayer(geojsonObjekt);
-    karte.fitBounds(geojsonGruppe.getBounds());
-}
-
-wienDatensaetze.sort(function(a,b){ 
-    if(a.titel < b.titel) {
-        return -1;
-    } else if (a.titel > b.titel){
-        return 1;
-    } else {
-        return 0;
     }
+    myMap.addLayer(myLayers.osm);
+//http://leafletjs.com/reference-1.3.0.html#map-addlayer
 
+
+let myMapControl = L.control.layers({ //http://leafletjs.com/reference-1.3.0.html#control-layers
+    "Openstreetmap": myLayers.osm,
+    "basemap.at Grundkarte": myLayers.geolandbasemap,
+    "Elektronische Karte Tirol Sommer": myLayers.elektronischekartesummer,
+    "Elektronische Karte Tirol Winter": myLayers.elektronischekartewinter,
+    "Elektronische Karte Tirol Ortho": myLayers.elektronischekarteortho,
+    
+},{
+    "Etappe 21": dataEtappe21
+   
+},{
+    collapsed: false //http://leafletjs.com/reference-1.3.0.html#control-layers-collapsed
 })
-//durch diese Commands wird das drop down menü alphabetisch geordnet
+myMap.addControl(myMapControl);
 
-// den GeoJSON Layer für Grillplätze laden
-// vorschleife sorgt dafür dass alle datenstze hinzugefügt werden
 
-ladeGeojsonLayer(wienDatensaetze[0].json);
-let layerAuswahl = document.getElementById("layerAuswahl"); //zugriff auf select als variable
+//myMap.setView([16.381940283134707,48.20785995958346],11);
+//fuegt koordinaten ein, für die variablen http://leafletjs.com/reference-1.3.0.html#map-setview
 
-for (datensatz of wienDatensaetze){
-    layerAuswahl.innerHTML +=  `<option value="${datensatz.json}">${datensatz.titel}</option>` //backtips um variablen ersätzen zu können mit $ und {}klammern
-    console.log(datensatz.titel)
-}
-layerAuswahl.onchange = function(evt) {
-    geojsonGruppe.clearLayers();
-    ladeGeojsonLayer(evt.target.value);
-
-} //wenn sich bei der layer auswahl was ändert dann mach eine funktion
+let myMapScale = L.control.scale( //http://leafletjs.com/reference-1.3.0.html#control-scale-l-control-scale
+    {metric: true, //http://leafletjs.com/reference-1.3.0.html#control-scale-metric
+    imperial: false, //http://leafletjs.com/reference-1.3.0.html#control-scale-imperial
+    maxWidth: 200} //http://leafletjs.com/reference-1.3.0.html#control-scale-maxwidth
+    //automatisch links unten - optinal befehl position: bottomleft
+).addTo(myMap);
