@@ -28,11 +28,15 @@
 // Overlay controls zum unabhängigem Ein-/Ausschalten der Route und Marker hinzufügen
 
 
-let myMap = L.map("map"); 
+let myMap = L.map("map", {
+    fullscreenControl: true,
 
-const etappe = L.featureGroup();
+}); 
+
+let bikegroup = L.featureGroup().addTo(myMap);
 
 let myLayers = {
+
     osm : L.tileLayer( 
         "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             subdomains : ["a", "b", "c",],
@@ -45,55 +49,69 @@ let myLayers = {
             attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
         }
     ),
-    elektronischekartesummer: L.tileLayer(
-        "http://wmts.kartetirol.at/wmts/gdi_base_summer/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80",{
-        minZoom: 0,
-        maxZoom: 18,
-        attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
+    bmapgrau: L.tileLayer(
+        "https://{s}.wien.gv.at/basemap/bmapgrau/normal/google3857/{z}/{y}/{x}.png", {
+            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
         }
     ),
-    elektronischekartewinter: L.tileLayer(
-        "http://wmts.kartetirol.at/wmts/gdi_base_winter/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80",{
-        minZoom: 0,
-        maxZoom: 18,
-        attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
+    bmaporthofoto30cm: L.tileLayer(
+        "https://{s}.wien.gv.at/basemap/bmaporthofoto30cm/normal/google3857/{z}/{y}/{x}.jpeg", {
+            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
         }
     ),
-    elektronischekarteortho: L.tileLayer(
-        "http://wmts.kartetirol.at/wmts/gdi_ortho/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80",{
-        minZoom: 0,
-        maxZoom: 18,
-        attribution: "Datenquelle: <a href='http://wmts.kartetirol.at/wmts'>Elektronische Karte Tirol</a>"
+    tiris_sommer: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_base_summer/GoogleMapsCompatible/{z}/{x}/{y}    .jpeg80", {
+            attribution: "Datenquelle: <a   href='https://www.data.gv.at/katalog/dataset/land-tirol_elektronischekartetirol'>eK   arte Tirol</a>"
         }
     ),
-    }
-    myMap.addLayer(myLayers.geolandbasemap);
+    tiris_winter: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_base_winter/GoogleMapsCompatible/{z}/{x}/{y}    .jpeg80", {
+            attribution: "Datenquelle: <a   href='https://www.data.gv.at/katalog/dataset/land-tirol_elektronischekartetirol'>eK   arte Tirol</a>"
+        }
+    ),
+    tiris_ortho: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_ortho/GoogleMapsCompatible/{z}/{x}/{y}.jpeg80", {
+            attribution: "Datenquelle: <a   href='https://www.data.gv.at/katalog/dataset/land-tirol_elektronischekartetirol'>eK   arte Tirol</a>"
+        }
+    ),
+    bmapoverlay: L.tileLayer(
+        "https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
+            subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
+            attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
 
-    myMap.addLayer(etappe);
+        }
+    ),
+    };
+myMap.addLayer(myLayers.geolandbasemap);
 
+myMap.addLayer(bikegroup);
 
-let myMapControl = L.control.layers({ 
+let myMapControl = L.control.layers({
+    
     "Openstreetmap": myLayers.osm,
     "basemap.at Grundkarte": myLayers.geolandbasemap,
-    "Elektronische Karte Tirol Sommer": myLayers.elektronischekartesummer,
-    "Elektronische Karte Tirol Winter": myLayers.elektronischekartewinter,
-    "Elektronische Karte Tirol Ortho": myLayers.elektronischekarteortho,
-    
+    "basemap.at grau": myLayers.bmapgrau,
+    "basemap.at Orthofoto": myLayers.bmaporthofoto30cm,
+    "Elektronische Karte Tirol - Sommer" : myLayers.tirisSommer,
+    "Elektronische Karte Tirol - Winter" : myLayers.tirisWinter,
+    "Elektronische Karte Tirol - Orthophoto" : myLayers.tirisOrtho,
+
 },{
-    "Etappe 21": etappe,
+    "Basemap Overlay": myLayers.bmapoverlay,
+    "Etappe 21": bikegroup,
    
 },{
     collapsed: false 
 }).addTo(myMap);
 
 
-let myMapScale = L.control.scale( 
-    {
+let myScale = L.control.scale({
     metric: true, 
     imperial: false, 
-    maxWidth: 200
-} 
-).addTo(myMap);
+    maxWidth: 200,
+}).addTo(myMap);
 
 const SZ_Koordinaten = {
     start : [47.261389, 11.553201],
@@ -124,12 +142,42 @@ const markerOptionZiel = {
     icon: myIconZiel
 };
 
-L.marker(SZ_Koordinaten.start, markerOptionStart).bindPopup("<p>Start: Windegg</p><a href='https://de.wikipedia.org/wiki/Windegg'>Wikipedia Windegg</a>").addTo(etappe);
-L.marker(SZ_Koordinaten.ziel, markerOptionZiel).bindPopup("<p>Ziel: Matrei</p><a href='https://de.wikipedia.org/wiki/Matrei_in_Osttirol'>Wikipedia Matrei</a>").addTo(etappe);
+L.marker(SZ_Koordinaten.start, markerOptionStart).bindPopup("<p>Start: Windegg</p><a href='https://de.wikipedia.org/wiki/Windegg'>Wikipedia Windegg</a>").addTo(bikegroup);
+L.marker(SZ_Koordinaten.ziel, markerOptionZiel).bindPopup("<p>Ziel: Matrei</p><a href='https://de.wikipedia.org/wiki/Matrei_in_Osttirol'>Wikipedia Matrei</a>").addTo(bikegroup);
 
-const geojson = L.geoJSON(biketourdata).addTo(etappe);
+//const geojson = L.geoJSON(biketourdata).addTo(etappe);
 
-geojson.bindPopup(function(layer){
+let gpxTrack = new L.GPX("data/etappe21.gpx", {
+    async: true
+}).addTo(myMap);
+gpxTrack.on('loaded', function(evt) {
+    myMap.fitBounds(evt.target.getBounds());
+    let track = evt.target;
+    console.log('Traillänge:', track.get_distance().toFixed(0))
+    console.log('Niedrigster Punkt:', track.get_elevation_min().toFixed(0))
+    console.log('Höchster Punkt:', track.get_elevation_max().toFixed(0))
+    console.log('Aufstieg:', track.get_elevation_gain().toFixed(0))
+    console.log('Abstieg: ', track.get_elavation_loss().toFixed(0))
+  
+    let gesamtlaenge=track.get_distance().toFixed(0);
+    document.getElementById('gesamtlaenge').innerHTML=gesamtlaenge;
+
+    let lowpoint=track.get_elevation_min().toFixed(0);
+    document.getElementById('lowpoint').innerHTML=lowpoint;
+
+    let highpoint=track.get_elevation_max().toFixed(0);
+    document.getElementById('highpoint').innerHTML=highpoint;
+
+    let aufstieg=track.get_elevation_gain().toFixed(0);
+    document.getElementById('aufstieg').innerHTML=aufstieg;
+
+    let abstieg=track.get_elevation_loss().toFixed(0);
+    document.getElementById('abstieg').innerHTML=abstieg;
+
+});
+
+
+gpxTrack.bindPopup(function(layer){
     const props = layer.feature.properties;
     const popupText = `<h2>${props.name}</h2>
     <p>Windegg - Matrei</p>`
@@ -137,4 +185,4 @@ geojson.bindPopup(function(layer){
 
 });
 
-myMap.fitBounds(etappe.getBounds());
+
