@@ -1,8 +1,16 @@
 // Leaflet Karte initialisieren
-let karte = L.map("divKarte");
+let karte = L.map("divKarte", {
+    fullscreenControl: true
+});
+
+
 
 // Gruppe für GeoJSON Layer definieren
 let geojsonGruppe = L.featureGroup().addTo(karte);
+
+let jsonUrl = wienDatensaetze[0].json;
+ladeGeojsonLayer(jsonUrl);
+
 
 // Grundkartenlayer definieren
 const grundkartenLayer = {
@@ -64,13 +72,52 @@ L.control.scale({
     imperial: false,
 }).addTo(karte);
 
+let datenObjekt = wienDatensaetze[0];
+ladeGeojsonLayer(datenObjekt);
+
+let datenPosition = evt.target.value;
+ladeGeojsonLayer(datenObjekt);
+
 // asynchrone Funktion zum Laden eines GeoJSON Layers
-async function ladeGeojsonLayer(url) {
-    const response = await fetch(url);
+async function ladeGeojsonLayer(datenObjekt) {
+    const response = await fetch(datenObjekt.json);
     const response_json = await response.json();
 
+    if (datenObjekt.icon){
+        console.log(datenAttribute.icon);
+    }
+
     // GeoJSON Geometrien hinzufügen und auf Ausschnitt zoomen
-    const geojsonObjekt = L.geoJSON(response_json);
+    const geojsonObjekt = L.geoJSON(response_json, {
+        onEachFeature: function(feature,layer) {
+            let popup ="";
+            for(attribut in feature.properties){
+                let wert=feature.properties[attribut]
+                if (wert && wert.toString().startsWith('http:')){
+                    popup+=`${attribut}: <a href="${wert}">Weblink</a><br/>`;
+                } else
+                    popup +=`${attribut}: ${wert}<br/>`;
+            }
+            layer.bindPopup(popup, {
+                maxWidth: 600,
+            });
+        },
+        pointToLayer: function(geoJsonPoint, latlng) {
+            if(datenObjekt.icon) {
+                return L.marker(latlng, {
+                    icon: L.icon({
+                        iconUrl: datenObjekt.icon,
+                        iconAnchor: [16,32],
+                        popupAnchor: [0, -32],
+                    })
+                })
+            } else {
+                return L.marker(latlng);
+            }
+        }
+    });
+
+
     geojsonGruppe.addLayer(geojsonObjekt);
     karte.fitBounds(geojsonGruppe.getBounds());
 }
@@ -93,12 +140,19 @@ wienDatensaetze.sort(function(a,b){
 ladeGeojsonLayer(wienDatensaetze[0].json);
 let layerAuswahl = document.getElementById("layerAuswahl"); //zugriff auf select als variable
 
-for (datensatz of wienDatensaetze){
-    layerAuswahl.innerHTML +=  `<option value="${datensatz.json}">${datensatz.titel}</option>` //backtips um variablen ersätzen zu können mit $ und {}klammern
-    console.log(datensatz.titel)
+for (let i=0; i< wienDatensaetze.length; i++){
+    let datenObjekt = wienDatensaetze[i];
+    let datenPosition = i;
+    layerAuswahl.innerHTML +=  `<option value="${datenPosition}">${datenObjekt.titel}</option>` //backtips um variablen ersätzen zu können mit $ und {}klammern
+    console.log(datenObjekt);
 }
-layerAuswahl.onchange = function(evt) {
-    geojsonGruppe.clearLayers();
-    ladeGeojsonLayer(evt.target.value);
 
-} //wenn sich bei der layer auswahl was ändert dann mach eine funktion
+// Einbau Event
+layerAuswahl.onchange=function(evt){
+    geojsonGruppe.clearLayers();
+    let i = evt.target.value;
+    ladeGeojsonLayer(wienDatensaetze[i]);
+}
+
+
+ //wenn sich bei der layer auswahl was ändert dann mach eine funktion
