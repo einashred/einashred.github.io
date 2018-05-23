@@ -80,13 +80,32 @@ let myLayers = {
         "https://{s}.wien.gv.at/basemap/bmapoverlay/normal/google3857/{z}/{y}/{x}.png", {
             subdomains: ["maps", "maps1", "maps2", "maps3", "maps4"],
             attribution: "Datenquelle: <a href='https://www.basemap.at'>basemap.at</a>"
-
         }
     ),
-    };
+    tiris_nomenklatur: L.tileLayer(
+        "http://wmts.kartetirol.at/wmts/gdi_nomenklatur/GoogleMapsCompatible/{z}/{x}/{y}.png8",  {
+            attribution: "Datenquelle: <a   href='https://www.data.gv.at/katalog/dataset/land-tirol_elektronischekartetirol'>eK   arte Tirol</a>",
+            pane: "overlayPane",
+        }
+    ),
+}
+    
+const tirisSommer = L.layerGroup([
+    myLayers.tiris_sommer,
+    myLayers.tiris_nomenklatur
+]);
+const tirisWinter = L.layerGroup([
+    myLayers.tiris_winter,
+    myLayers.tiris_nomenklatur
+]);
+const tirisOrtho = L.layerGroup([
+    myLayers.tiris_ortho,
+    myLayers.tiris_nomenklatur
+]);
+
 myMap.addLayer(myLayers.geolandbasemap);
 
-myMap.addLayer(bikegroup);
+//myMap.addLayer(bikegroup);
 
 let myMapControl = L.control.layers({
     
@@ -94,17 +113,20 @@ let myMapControl = L.control.layers({
     "basemap.at Grundkarte": myLayers.geolandbasemap,
     "basemap.at grau": myLayers.bmapgrau,
     "basemap.at Orthofoto": myLayers.bmaporthofoto30cm,
-    "Elektronische Karte Tirol - Sommer" : myLayers.tirisSommer,
-    "Elektronische Karte Tirol - Winter" : myLayers.tirisWinter,
-    "Elektronische Karte Tirol - Orthophoto" : myLayers.tirisOrtho,
+    "Elektronische Karte Tirol - Sommer" : tirisSommer,
+    "Elektronische Karte Tirol - Winter" : tirisWinter,
+    "Elektronische Karte Tirol - Orthophoto" : tirisOrtho,
 
 },{
-    "Basemap Overlay": myLayers.bmapoverlay,
-    "Etappe 21": bikegroup,
+
+    "Etappe 21": bikegroup
    
 },{
     collapsed: false 
 }).addTo(myMap);
+
+myMap.addControl(myMapControl);
+myMap.addLayer(tirisSommer);
 
 
 let myScale = L.control.scale({
@@ -145,21 +167,21 @@ const markerOptionZiel = {
 L.marker(SZ_Koordinaten.start, markerOptionStart).bindPopup("<p>Start: Windegg</p><a href='https://de.wikipedia.org/wiki/Windegg'>Wikipedia Windegg</a>").addTo(bikegroup);
 L.marker(SZ_Koordinaten.ziel, markerOptionZiel).bindPopup("<p>Ziel: Matrei</p><a href='https://de.wikipedia.org/wiki/Matrei_in_Osttirol'>Wikipedia Matrei</a>").addTo(bikegroup);
 
+
 //const geojson = L.geoJSON(biketourdata).addTo(etappe);
 
 let gpxTrack = new L.GPX("data/etappe21.gpx", {
     async: true
 }).addTo(myMap);
-gpxTrack.on('loaded', function(evt) {
-   
+gpxTrack.on("loaded", function(evt) {
     let track = evt.target;
-    console.log('Traillänge:', track.get_distance().toFixed(0));
-    console.log('Niedrigster Punkt:', track.get_elevation_min().toFixed(0));
-    console.log('Höchster Punkt:', track.get_elevation_max().toFixed(0));
-    console.log('Aufstieg:', track.get_elevation_gain().toFixed(0));
-    console.log('Abstieg: ', track.get_elavation_loss().toFixed(0));
-
-    myMap.fitBounds(evt.target.getBounds());
+    console.log('Traillänge:', track.get_distance().toFixed(0))
+    console.log('Niedrigster Punkt:', track.get_elevation_min().toFixed(0))
+    console.log('Höchster Punkt:', track.get_elevation_max().toFixed(0))
+    console.log('Aufstieg:', track.get_elevation_gain().toFixed(0))
+    console.log('Abstieg: ', track.get_elevation_loss().toFixed(0))
+   
+    myMap.fitBounds(track.getBounds());
 
     let gesamtlaenge=track.get_distance().toFixed(0);
     document.getElementById('gesamtlaenge').innerHTML=gesamtlaenge;
@@ -174,8 +196,10 @@ gpxTrack.on('loaded', function(evt) {
     document.getElementById('aufstieg').innerHTML=aufstieg;
 
     let abstieg=track.get_elevation_loss().toFixed(0);
-    document.getElementById('abstieg').innerHTML=abstieg;
+    document.getEle
+    mentById('abstieg').innerHTML=abstieg;
 
+    
 });
 
 
