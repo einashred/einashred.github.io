@@ -83,21 +83,21 @@ async function ladeGeojsonLayer(datenObjekt) {
     const response = await fetch(datenObjekt.json);
     const response_json = await response.json();
 
-    if (datenObjekt.icon){
-        console.log(datenAttribute.icon);
-    }
+    //if (datenObjekt.icon){
+      //  console.log(datenAttribute.icon);
+    //}
 
     // GeoJSON Geometrien hinzufügen und auf Ausschnitt zoomen
     const geojsonObjekt = L.geoJSON(response_json, {
         onEachFeature: function(feature,layer) {
-            let popup ="";
+            let popup ="<h3>Attribute:</h3>";
             for(attribut in feature.properties){
                 let wert=feature.properties[attribut]
-                if (wert && wert.toString().startsWith('http:')){
+                if (wert && wert.toString().startsWith('http')){
                     popup+=`${attribut}: <a href="${wert}">Weblink</a><br/>`;
-                } else
+                } else{
                     popup +=`${attribut}: ${wert}<br/>`;
-            }
+            }}
             layer.bindPopup(popup, {
                 maxWidth: 600,
             });
@@ -140,10 +140,11 @@ wienDatensaetze.sort(function(a,b){
 ladeGeojsonLayer(wienDatensaetze[0].json);
 let layerAuswahl = document.getElementById("layerAuswahl"); //zugriff auf select als variable
 
-for (let i=0; i< wienDatensaetze.length; i++){
-    let datenObjekt = wienDatensaetze[i];
+for (i=0; i< wienDatensaetze.length; i++){
+    /*let datenObjekt = wienDatensaetze[i];
     let datenPosition = i;
-    layerAuswahl.innerHTML +=  `<option value="${datenPosition}">${datenObjekt.titel}</option>` //backtips um variablen ersätzen zu können mit $ und {}klammern
+    */
+    layerAuswahl.innerHTML +=  `<option value="${i}">${wienDatensaetze[i].titel}</option>` //backtips um variablen ersätzen zu können mit $ und {}klammern
     console.log(datenObjekt);
 }
 
