@@ -151,14 +151,16 @@ let gpxTrack = new L.GPX("data/etappe21.gpx", {
     async: true
 }).addTo(myMap);
 gpxTrack.on('loaded', function(evt) {
-    myMap.fitBounds(evt.target.getBounds());
+   
     let track = evt.target;
-    console.log('Traillänge:', track.get_distance().toFixed(0))
-    console.log('Niedrigster Punkt:', track.get_elevation_min().toFixed(0))
-    console.log('Höchster Punkt:', track.get_elevation_max().toFixed(0))
-    console.log('Aufstieg:', track.get_elevation_gain().toFixed(0))
-    console.log('Abstieg: ', track.get_elavation_loss().toFixed(0))
-  
+    console.log('Traillänge:', track.get_distance().toFixed(0));
+    console.log('Niedrigster Punkt:', track.get_elevation_min().toFixed(0));
+    console.log('Höchster Punkt:', track.get_elevation_max().toFixed(0));
+    console.log('Aufstieg:', track.get_elevation_gain().toFixed(0));
+    console.log('Abstieg: ', track.get_elavation_loss().toFixed(0));
+
+    myMap.fitBounds(evt.target.getBounds());
+
     let gesamtlaenge=track.get_distance().toFixed(0);
     document.getElementById('gesamtlaenge').innerHTML=gesamtlaenge;
 
@@ -177,7 +179,7 @@ gpxTrack.on('loaded', function(evt) {
 });
 
 
-gpxTrack.bindPopup(function(layer){
+/*gpxTrack.bindPopup(function(layer){
     const props = layer.feature.properties;
     const popupText = `<h2>${props.name}</h2>
     <p>Windegg - Matrei</p>`
@@ -185,4 +187,4 @@ gpxTrack.bindPopup(function(layer){
 
 });
 
-
+*/
