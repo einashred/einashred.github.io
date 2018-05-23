@@ -3,8 +3,6 @@ let karte = L.map("divKarte", {
     fullscreenControl: true
 });
 
-
-
 // Gruppe für GeoJSON Layer definieren
 let geojsonGruppe = L.featureGroup().addTo(karte);
 
@@ -72,11 +70,22 @@ L.control.scale({
     imperial: false,
 }).addTo(karte);
 
+wienDatensaetze.sort(function(a,b){ 
+    if(a.titel < b.titel) {
+        return -1;
+    } else if (a.titel > b.titel){
+        return 1;
+    } else {
+        return 0;
+    }
+
+})
+
 let datenObjekt = wienDatensaetze[0];
 ladeGeojsonLayer(datenObjekt);
 
-let datenPosition = evt.target.value;
-ladeGeojsonLayer(datenObjekt);
+//let datenPosition = evt.target.value;
+//ladeGeojsonLayer(datenObjekt);
 
 // asynchrone Funktion zum Laden eines GeoJSON Layers
 async function ladeGeojsonLayer(datenObjekt) {
@@ -100,6 +109,7 @@ async function ladeGeojsonLayer(datenObjekt) {
             }}
             layer.bindPopup(popup, {
                 maxWidth: 600,
+
             });
         },
         pointToLayer: function(geoJsonPoint, latlng) {
@@ -117,21 +127,12 @@ async function ladeGeojsonLayer(datenObjekt) {
         }
     });
 
-
     geojsonGruppe.addLayer(geojsonObjekt);
     karte.fitBounds(geojsonGruppe.getBounds());
 }
 
-wienDatensaetze.sort(function(a,b){ 
-    if(a.titel < b.titel) {
-        return -1;
-    } else if (a.titel > b.titel){
-        return 1;
-    } else {
-        return 0;
-    }
 
-})
+
 //durch diese Commands wird das drop down menü alphabetisch geordnet
 
 // den GeoJSON Layer für Grillplätze laden
